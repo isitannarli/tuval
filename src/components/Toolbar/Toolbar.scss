@@ -1,0 +1,63 @@
+.toolbar {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: space-between;
+  background-color: rgba(#000, 0.65);
+  backdrop-filter: blur(10px);
+  height: 60px;
+  width: 400px;
+  border-radius: 4px;
+  position: absolute;
+  bottom: 10px;
+  left: calc(50% - 200px);
+  padding: 10px;
+  box-sizing: border-box;
+  z-index: 2;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: 0 0 22px 2px rgba(#000, 0.43);
+
+  &__items {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    width: 42px;
+    height: 42px;
+    background-color: rgba(#000, 0.3);
+    border: 1px solid #333;
+    border-radius: 4px;
+    cursor: pointer;
+    // padding: 6px;
+    // box-sizing: border-box;
+
+    &,
+    &:hover,
+    &:focus {
+      transition: all 200ms ease;
+    }
+
+    &:hover {
+      color: #fff;
+    }
+
+    &--active {
+      color: #fff;
+    }
+
+    & > * {
+      border-radius: 4px;
+    }
+
+    svg {
+      font-size: 32px;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+export { default as BrushActiveIcon } from "./BrushActiveIcon";
+export { default as BrushIcon } from "./BrushIcon";
+export { default as ColorPaletteActiveIcon } from "./ColorPaletteActiveIcon";
+export { default as ColorPaletteIcon } from "./ColorPaletteIcon";
+export { default as EraserActiveIcon } from "./EraserActiveIcon";
+export { default as EraserIcon } from "./EraserIcon";
+export { default as RedoActiveIcon } from "./RedoActiveIcon";
+export { default as RedoIcon } from "./RedoIcon";
+export { default as SettingsActiveIcon } from "./SettingsActiveIcon";
+export { default as SettingsIcon } from "./SettingsIcon";
+export { default as TextActiveIcon } from "./TextActiveIcon";
+export { default as TextIcon } from "./TextIcon";
+export { default as TrashActiveIcon } from "./TrashActiveIcon";
+export { default as TrashIcon } from "./TrashIcon";
+export { default as UndoActiveIcon } from "./UndoActiveIcon";
+export { default as UndoIcon } from "./UndoIcon";
+export { default as TickCircleLinearIcon } from "./TickCircleLinearIcon";

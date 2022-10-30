@@ -1,0 +1,70 @@
+{
+  "name": "tuval",
+  "description": "Tuval is a cross-platform app that lets you to draw on the desktop screen",
+  "private": true,
+  "version": "0.0.1",
+  "license": "MIT",
+  "author": "Ahmet Işıtan Narlı",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/isitannarli/tuval.git"
+  },
+  "keywords": [
+    "tuval",
+    "cross-platform",
+    "screen-brush",
+    "drawing",
+    "draw",
+    "canvas",
+    "react",
+    "tauri"
+  ],
+  "bugs": {
+    "url": "https://github.com/isitannarli/tuval/issues"
+  },
+  "engines": {
+    "node": ">=16.18.0"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "tauri": "tauri",
+    "lint": "npm run lint:eslint && npm run lint:prettier",
+    "lint:eslint": "eslint ./ --ext .js,.jsx,.ts,.tsx --fix",
+    "lint:prettier": "prettier --write .",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^1.1.0",
+    "clsx": "^1.2.1",
+    "immer": "^9.0.16",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "zustand": "^4.1.3"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^1.1.1",
+    "@types/node": "^18.11.7",
+    "@types/react": "^18.0.24",
+    "@types/react-dom": "^18.0.8",
+    "@typescript-eslint/eslint-plugin": "^5.41.0",
+    "@typescript-eslint/parser": "^5.41.0",
+    "@vitejs/plugin-react": "^2.2.0",
+    "eslint": "^8.26.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-react": "^7.31.10",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^8.0.1",
+    "prettier": "^2.7.1",
+    "prettier-plugin-rust": "^0.1.8",
+    "sass": "^1.55.0",
+    "typescript": "^4.8.4",
+    "vite": "^3.2.1"
+  }
+}
