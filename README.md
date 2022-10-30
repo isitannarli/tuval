@@ -14,6 +14,11 @@
 
 > Info: This app does not have a stable version yet. Please, let me know if you have a problem.
 
+## Screenshots
+<img width="2560" alt="Screenshot 2022-10-30 at 14 37 39" src="https://user-images.githubusercontent.com/4882982/198876717-7ae914dd-4aa9-439f-bc96-6a6f86ecadea.png">
+
+## Video
+https://user-images.githubusercontent.com/4882982/198876864-425b01d3-58c9-4cd9-a9c8-2baceb6cbf89.mp4
 
 ## Development
 
