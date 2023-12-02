@@ -27,8 +27,8 @@ https://user-images.githubusercontent.com/4882982/198876864-425b01d3-58c9-4cd9-a
 
 **Required:**
 
-- NodeJS v18.12.0
-- Rust v1.25.1
+- NodeJS v20.9.0
+- Rust v1.73.0
 
 ```shell
 npm install
@@ -59,11 +59,19 @@ yarn run tauri build
 - [ ] Toolbar
   - [ ] Screenshot
   - [ ] Text
-  - [ ] Undo / Redo
   - [ ] Flashlight
 - [ ] Theme
 - [ ] Settings
   - [ ] Shortcut
+
+## FAQ
+
+### Motivation
+
+I have searched for many applications with similar features, but I haven't come across a multi-featured tool that can be used cross-platform. This is why I decided to build one myself. My main objective is to be able to draw and write on my desktop while collaborating with others. 
+
+### Privacy
+Tuval is a software that solely runs on your computer. It does not gather any information or data from your device.
 
 ## Sources
 

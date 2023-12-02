@@ -1,5 +1,6 @@
 const EventPrefix = "TuvalEvents";
 
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export default class EventEmitter {
   static Emit<T = unknown>(name: string, payload?: T): void {
     const event = new CustomEvent(`${EventPrefix}.${name}`, {
@@ -11,7 +12,7 @@ export default class EventEmitter {
 
   static On(name: string, callback: (payload: unknown) => void): void {
     window.addEventListener(`${EventPrefix}.${name}`, ((
-      payload: CustomEvent
+      payload: CustomEvent,
     ) => {
       callback(payload.detail);
     }) as EventListener);
@@ -19,7 +20,7 @@ export default class EventEmitter {
 
   static RemoveListener(
     name: string,
-    callback: (payload: unknown) => void
+    callback: (payload: unknown) => void,
   ): void {
     window.removeEventListener(`${EventPrefix}.${name}`, callback);
   }

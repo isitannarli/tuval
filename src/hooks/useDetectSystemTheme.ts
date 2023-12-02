@@ -5,7 +5,7 @@ import { appWindow, type Theme } from "@tauri-apps/api/window";
 /** Types */
 import type { UnlistenFn } from "@tauri-apps/api/event";
 
-export default function useDetectSystemTheme() {
+export default function useDetectSystemTheme(): Theme {
   const [theme, setTheme] = useState<Theme>("dark");
 
   useEffect(() => {
@@ -15,7 +15,7 @@ export default function useDetectSystemTheme() {
     (async () => {
       const currentSystemTheme = await appWindow.theme();
 
-      if (currentSystemTheme) {
+      if (currentSystemTheme !== null) {
         setTheme(currentSystemTheme);
       }
 
@@ -25,7 +25,7 @@ export default function useDetectSystemTheme() {
     })();
 
     return () => {
-      if (unlisten) {
+      if (typeof unlisten === "function") {
         unlisten();
       }
     };

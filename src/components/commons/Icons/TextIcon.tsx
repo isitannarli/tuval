@@ -1,7 +1,9 @@
-import * as React from "react";
-import { SVGProps } from "react";
+import React from "react";
+import { type SVGProps } from "react";
 
-function SvgTextIcon(props: SVGProps<SVGSVGElement>) {
+export default function SvgTextIcon(
+  props: SVGProps<SVGSVGElement>,
+): JSX.Element {
   return (
     <svg
       width="1em"
@@ -21,5 +23,3 @@ function SvgTextIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
-
-export default SvgTextIcon;

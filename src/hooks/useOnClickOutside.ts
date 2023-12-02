@@ -5,14 +5,13 @@ type AnyEvent = MouseEvent | TouchEvent;
 
 export default function useOnClickOutside<T extends HTMLElement = HTMLElement>(
   ref: RefObject<T>,
-  handler: (event: AnyEvent) => void
+  handler: (event: AnyEvent) => void,
 ): void {
   useEffect(() => {
-    const listener = (event: AnyEvent) => {
-      const el = ref?.current;
+    const listener = (event: AnyEvent): void => {
+      const element = ref.current;
 
-      // Do nothing if clicking ref's element or descendent elements
-      if (!el || el.contains(event.target as Node)) {
+      if (element === null || element.contains(event.target as Node)) {
         return;
       }
 

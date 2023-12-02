@@ -1,7 +1,9 @@
-import * as React from "react";
-import { SVGProps } from "react";
+import React from "react";
+import { type SVGProps } from "react";
 
-function SvgBrushActiveIcon(props: SVGProps<SVGSVGElement>) {
+export default function SvgBrushActiveIcon(
+  props: SVGProps<SVGSVGElement>,
+): JSX.Element {
   return (
     <svg
       width="1em"
@@ -27,5 +29,3 @@ function SvgBrushActiveIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
-
-export default SvgBrushActiveIcon;

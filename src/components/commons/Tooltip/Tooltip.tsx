@@ -1,15 +1,12 @@
 /** Dependencies */
+import React, { useCallback, useRef, useState } from "react";
 import clsx from "clsx";
-import { useCallback, useRef, useState } from "react";
 import useEventListener from "../../../hooks/useEventListener";
-
-/** Stylesheets */
-import "./Tooltip.scss";
 
 /** Tyoes */
 import type { TooltipProps } from "./Tooltip.types";
 
-export default function Tooltip(props: TooltipProps) {
+export default function Tooltip(props: TooltipProps): JSX.Element | null {
   const {
     className = "",
     children,
@@ -35,7 +32,7 @@ export default function Tooltip(props: TooltipProps) {
 
   useEventListener("mouseleave", mouseLeaveHandler, tooltipWrapperRef);
 
-  if (!title && !description) {
+  if (title === undefined && description === undefined) {
     return null;
   }
 
@@ -48,8 +45,8 @@ export default function Tooltip(props: TooltipProps) {
         })}
         {...others}
       >
-        {title && <span className="tooltip__title">{title}</span>}
-        {description && (
+        {title !== undefined && <span className="tooltip__title">{title}</span>}
+        {description !== undefined && (
           <span className="tooltip__description">{description}</span>
         )}
       </div>

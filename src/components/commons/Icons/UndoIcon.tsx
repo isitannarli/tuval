@@ -1,7 +1,9 @@
-import * as React from "react";
-import { SVGProps } from "react";
+import React from "react";
+import { type SVGProps } from "react";
 
-function SvgUndoIcon(props: SVGProps<SVGSVGElement>) {
+export default function SvgUndoIcon(
+  props: SVGProps<SVGSVGElement>,
+): JSX.Element {
   return (
     <svg
       width="1em"
@@ -29,5 +31,3 @@ function SvgUndoIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
-
-export default SvgUndoIcon;

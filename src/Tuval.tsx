@@ -2,13 +2,7 @@
 import React, { useEffect } from "react";
 import { register } from "@tauri-apps/api/globalShortcut";
 import { appWindow } from "@tauri-apps/api/window";
-// Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-// import { invoke } from "@tauri-apps/api/tauri";
-
-/** Components */
-import Toolbar from "./components/Toolbar/Toolbar";
-import Canvas from "./components/Canvas/Canvas";
-import Cursor from "./components/Cursor/Cursor";
+import { Canvas, Tldraw, type TLEditorComponents } from "@tldraw/tldraw";
 
 /** Contexts */
 import { withMediatorContext } from "./contexts/MediatorContext/MediatorContext";
@@ -16,9 +10,27 @@ import { withMediatorContext } from "./contexts/MediatorContext/MediatorContext"
 /** Hooks */
 // import useDetectSystemTheme from "./hooks/useDetectSystemTheme";
 
-function Tuval() {
-  // const theme = useDetectSystemTheme();
+/** Stylesheets */
+import "@tldraw/tldraw/tldraw.css";
+import Toolbar from "./components/Toolbar/Toolbar";
 
+function MyComponent(): JSX.Element {
+  return (
+    <>
+      <div className="absolute bg-transparent w-fit"></div>
+    </>
+  );
+}
+
+const components: Partial<TLEditorComponents> = {
+  Background: MyComponent,
+  // Cursor,
+  // InFrontOfTheCanvas: MyComponentInFront,
+  // SnapLine: null,
+};
+
+function Tuval(): JSX.Element {
+  // const theme = useDetectSystemTheme();
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     (async () => {
@@ -30,10 +42,14 @@ function Tuval() {
   }, []);
 
   return (
-    <div className="container">
-      <Canvas />
-      <Toolbar />
-      <Cursor />
+    <div
+      className="ccontainer"
+      style={{ position: "fixed", inset: 0, backgroundColor: "transparent" }}
+    >
+      <Tldraw hideUi persistenceKey="canvas" components={components}>
+        <Canvas />
+        <Toolbar />
+      </Tldraw>
     </div>
   );
 }

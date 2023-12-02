@@ -1,124 +1,111 @@
 /** Dependencies */
-import { useCallback, useState } from "react";
+import React from "react";
 import { appWindow } from "@tauri-apps/api/window";
+import { track, useEditor } from "@tldraw/tldraw";
 
 /** Components */
-import Brush from "./Tools/Brush/Brush";
-import Eraser from "./Tools/Eraser/Eraser";
-import ColorPicker from "./Tools/ColorPicker/ColorPicker";
-import RainbowColor from "./Tools/RainbowColor/RainbowColor";
-// import { RedoIcon, UndoIcon } from "../commons/Icons";
-
-/** Store */
-import { useStore } from "../../store/useStore";
+import { RedoIcon, UndoIcon } from "../commons/Icons";
 
 /** Hooks */
 import useEventListener from "../../hooks/useEventListener";
 
-/** Stylesheets */
-import "./Toolbar.scss";
+const Toolbar = track(() => {
+  const editor = useEditor();
 
-export default function Toolbar() {
-  const [lastScrollPosition, setLastScrollPosition] = useState<{
-    x: number;
-    y: number;
-  }>({ x: 0, y: 0 });
-  const [lastPressed, setLastPressed] = useState<string>("");
-
-  const { setBrushSize, setToolType } = useStore((state) => state);
-
-  const mouseMoveHandler = useCallback((event: MouseEvent) => {
-    setLastScrollPosition({
-      x: event.clientY,
-      y: event.clientX,
-    });
-  }, []);
-
-  useEventListener("mousemove", mouseMoveHandler);
-
-  const mouseDownHandler = useCallback(async (event: MouseEvent) => {
+  const mouseDownHandler = async (event: MouseEvent): Promise<void> => {
     if (event.which === 3) {
       await appWindow.hide();
     }
-  }, []);
+  };
 
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   useEventListener("mousedown", mouseDownHandler);
 
-  const mouseWheelHandler = useCallback(
-    (event: WheelEvent) => {
-      const direction = event.deltaY > 0 ? "down" : "up";
-
-      setBrushSize((prevValue) => {
-        let newValue = prevValue;
-
-        if (direction === "up") {
-          const value = prevValue + 1;
-          if (value > 60) {
-            return prevValue;
-          }
-
-          newValue = value;
-        } else {
-          const value = prevValue - 1;
-          if (value < 1) {
-            return prevValue;
-          }
-
-          newValue = value;
-        }
-
-        return newValue;
-      });
-    },
-    [lastScrollPosition]
-  );
-
-  useEventListener("wheel", mouseWheelHandler, undefined, { passive: false });
-
-  const keydownHandler = useCallback(
-    (event: KeyboardEvent) => {
-      if (event.key === "b") {
-        setToolType("brush");
-      }
-
-      if (event.key === "e") {
-        setToolType("eraser");
-      }
-
-      setLastPressed(event.key);
-    },
-    [lastPressed, setLastPressed]
-  );
-
-  useEventListener("keydown", keydownHandler);
-
-  const contextMenuHandler = useCallback((event: Event) => {
+  const contextMenuHandler = (event: Event): void => {
     event.preventDefault();
-  }, []);
+  };
 
   useEventListener("contextmenu", contextMenuHandler);
+
+  const keyupHandler = (event: KeyboardEvent): void => {
+    switch (event.key) {
+      case "Delete":
+      case "Backspace":
+        if (
+          (editor.selectedShapeIds.length === 0 && event.ctrlKey) ||
+          event.metaKey
+        ) {
+          editor.selectAll();
+        }
+
+        editor.deleteShapes(editor.selectedShapeIds);
+        break;
+      case "v":
+        editor.setCurrentTool("select");
+        break;
+      case "e":
+        editor.setCurrentTool("eraser");
+        break;
+      case "b":
+        editor.setCurrentTool("draw");
+        break;
+      case "z":
+        if (event.ctrlKey || event.metaKey) {
+          if (event.shiftKey) {
+            editor.redo();
+          } else {
+            editor.undo();
+          }
+          break;
+        }
+        break;
+    }
+  };
+
+  useEventListener("keydown", keyupHandler);
 
   return (
     <div className="toolbar">
       <div className="toolbar__items">
-        <Brush className="toolbar__item" />
+        {/* <Brush className="toolbar__item" />
         <Eraser className="toolbar__item" />
         <ColorPicker className="toolbar__item" />
-        <RainbowColor className="toolbar__item" />
+        <RainbowColor className="toolbar__item" /> */}
       </div>
-      {/* <div className="toolbar__items">
+      <div className="toolbar__item">
+        <button
+          className="toolbar__item"
+          onClick={() => {
+            const stringified = localStorage.getItem("snapshot");
+            const snapshot = JSON.parse(stringified ?? "{}");
+            editor.store.loadSnapshot(snapshot);
+          }}
+        >
+          Load
+        </button>
+      </div>
+      <div className="toolbar__items">
         <div className="toolbar__item">
-          <button type="button" className="toolbar__button">
+          <button
+            type="button"
+            className="toolbar__button"
+            onClick={() => editor.undo()}
+          >
             <UndoIcon />
           </button>
         </div>
         <div className="toolbar__item">
-          <button type="button" className="toolbar__button">
+          <button
+            type="button"
+            className="toolbar__button"
+            onClick={() => editor.redo()}
+          >
             <RedoIcon />
           </button>
         </div>
-      </div> */}
+      </div>
     </div>
   );
-}
+});
+
+export default Toolbar;

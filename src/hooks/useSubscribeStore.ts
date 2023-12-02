@@ -13,8 +13,8 @@ export default function useSubscribeStore<U>(
   options?: {
     equalityFn?: (a: U, b: U) => boolean;
     fireImmediately?: boolean;
-  }
-) {
+  },
+): void {
   useEffect(() => {
     useStore.subscribe<U>(selector, listener, options);
 

@@ -1,5 +1,5 @@
 /** Dependencies */
-import { createContext, useContext, useMemo } from "react";
+import React, { createContext, useContext, useMemo } from "react";
 import EventEmitter from "../../utils/EventEmitter";
 
 /** Types */
@@ -15,7 +15,9 @@ const mediatorContextValue: MediatorContextValue = {
 const MediatorContext =
   createContext<MediatorContextValue>(mediatorContextValue);
 
-function MediatorContextProvider(props: MediatorContextProviderProps) {
+function MediatorContextProvider(
+  props: MediatorContextProviderProps,
+): React.ReactElement {
   const { children } = props;
 
   const eventEmitter = new EventEmitter();
@@ -24,7 +26,7 @@ function MediatorContextProvider(props: MediatorContextProviderProps) {
     () => ({
       eventEmitter,
     }),
-    []
+    [],
   );
 
   return (
@@ -35,12 +37,13 @@ function MediatorContextProvider(props: MediatorContextProviderProps) {
 }
 
 export function withMediatorContext<Props extends object>(
-  WrappedComponent: React.ComponentType<Props>
-) {
+  WrappedComponent: React.ComponentType<Props>,
+): React.ComponentType<Props> {
   const displayName =
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/prefer-nullish-coalescing
     WrappedComponent.displayName || WrappedComponent.name || "Component";
 
-  function MediatorWrapperComponent(props: Props) {
+  function MediatorWrapperComponent(props: Props): React.ReactElement {
     return (
       <MediatorContextProvider>
         <MediatorContext.Consumer>
@@ -55,6 +58,6 @@ export function withMediatorContext<Props extends object>(
   return MediatorWrapperComponent;
 }
 
-export function useMediatorContext() {
+export function useMediatorContext(): MediatorContextValue {
   return useContext(MediatorContext);
 }
