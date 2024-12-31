@@ -1,21 +1,12 @@
-/** Dependencies */
-import { type MouseEvent, useCallback } from "react";
+import { IconBrush } from "@tabler/icons-react";
 import clsx from "clsx";
-
-/** Components */
-import Tooltip from "../../../commons/Tooltip/Tooltip";
-import { BrushActiveIcon, BrushIcon } from "../../../commons/Icons";
-
-/** Store */
+import { type MouseEvent, useCallback } from "react";
 import { useStore } from "../../../../store/useStore";
-
-/** Stylesheets */
+import Tooltip from "../../../commons/Tooltip/Tooltip";
 import "./Brush.scss";
-
-/** Types */
 import type { BrushProps } from "./Brush.types";
 
-export default function Brush(props: BrushProps) {
+export default function Brush(props: BrushProps): React.ReactElement {
   const { className = "" } = props;
 
   const { toolType, setToolType } = useStore((state) => state);
@@ -30,11 +21,11 @@ export default function Brush(props: BrushProps) {
       <button
         type="button"
         className={clsx("brush", className, {
-          // "toolbar__button--active": toolType === "brush",
+          "brush--active": toolType === "brush",
         })}
         onClick={clickHandler}
       >
-        {toolType === "brush" ? <BrushActiveIcon /> : <BrushIcon />}
+        <IconBrush />
       </button>
     </Tooltip>
   );

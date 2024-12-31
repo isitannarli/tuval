@@ -1,35 +1,28 @@
-/** Dependencies */
-import create from "zustand";
-
-/** Middleware */
-import { subscribeWithSelector, persist } from "zustand/middleware";
-
-/** Types */
+import { create } from "zustand";
+import { persist, subscribeWithSelector } from "zustand/middleware";
 import type { State } from "./useStore.types";
 
-const useStore = create<State>()(
+export const useStore = create<State>()(
   persist(
     subscribeWithSelector((set) => ({
       brushColor: "#FFFFFF",
-      setBrushColor: (value) => set(() => ({ brushColor: value })),
+      setBrushColor: (value): void => set(() => ({ brushColor: value })),
       brushColorType: "rainbow",
-      setBrushColorType: (value) => set(() => ({ brushColorType: value })),
+      setBrushColorType: (value): void =>
+        set(() => ({ brushColorType: value })),
       toolType: "brush",
-      setToolType: (value) => set(() => ({ toolType: value })),
+      setToolType: (value): void => set(() => ({ toolType: value })),
       brushSize: 10,
-      setBrushSize: (callback) =>
+      setBrushSize: (callback): void =>
         set(({ brushSize }) => ({
           brushSize: callback(brushSize),
         })),
       currentRainbowColor: "red",
-      setCurrentRainbowColor: (value) =>
+      setCurrentRainbowColor: (value): void =>
         set(() => ({ currentRainbowColor: value })),
     })),
     {
       name: "tuval-storage",
-    }
-  )
+    },
+  ),
 );
-
-// eslint-disable-next-line import/prefer-default-export
-export { useStore };

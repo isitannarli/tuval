@@ -1,0 +1,20 @@
+pre-push:
+  commands:
+    packages-audit:
+      tags: security
+      run: pnpm audit
+
+pre-commit:
+  parallel: true
+  commands:
+    biome-check:
+      tags: lint
+      glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
+      run: npx @biomejs/biome check --write --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files}
+      stage_fixed: true
+
+commit-msg:
+  commands:
+    lint-commit-msg:
+      tags: lint
+      run: npx --no -- commitlint --edit "$1"

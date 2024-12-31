@@ -1,21 +1,12 @@
-/** Dependencies */
-import { useCallback, useEffect, useRef, useState } from "react";
 import clsx from "clsx";
-
-/** Store */
-import { useStore } from "../../store/useStore";
-
-/** Hooks */
+import { useCallback, useEffect, useRef, useState } from "react";
 import useEventListener from "../../hooks/useEventListener";
 import useSubscribeStore from "../../hooks/useSubscribeStore";
-
-/** Stylesheets */
+import { useStore } from "../../store/useStore";
 import "./Cursor.scss";
-
-/** Types */
 import type { State } from "../../store/useStore.types";
 
-export default function Cursor() {
+export default function Cursor(): React.ReactElement | null {
   const [lastScrollPosition, setLastScrollPosition] = useState<{
     x: number;
     y: number;
@@ -54,7 +45,7 @@ export default function Cursor() {
 
       cursorRef.current.style.transform = `translate3d(${x}px, ${y}px, 0)`;
     },
-    []
+    [],
   );
 
   useSubscribeStore<
@@ -89,7 +80,7 @@ export default function Cursor() {
       cursorRef.current.style.height = `${state.brushSize}px`;
 
       setCursorPosition(lastScrollPosition.x, lastScrollPosition.y);
-    }
+    },
   );
 
   const mouseMoveHandler = useCallback((event: MouseEvent) => {

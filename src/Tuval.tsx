@@ -1,30 +1,38 @@
-/** Dependencies */
-import React, { useEffect } from "react";
-import { register } from "@tauri-apps/api/globalShortcut";
-import { appWindow } from "@tauri-apps/api/window";
-// Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-// import { invoke } from "@tauri-apps/api/tauri";
-
-/** Components */
-import Toolbar from "./components/Toolbar/Toolbar";
+import { useEffect } from "react";
 import Canvas from "./components/Canvas/Canvas";
 import Cursor from "./components/Cursor/Cursor";
+import Toolbar from "./components/Toolbar/Toolbar";
 
-/** Contexts */
-import { withMediatorContext } from "./contexts/MediatorContext/MediatorContext";
-
-/** Hooks */
-// import useDetectSystemTheme from "./hooks/useDetectSystemTheme";
-
-function Tuval() {
-  // const theme = useDetectSystemTheme();
-
+export default function Tuval(): React.ReactElement {
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     (async () => {
-      // eslint-disable-next-line @typescript-eslint/no-misused-promises
-      await register("CommandOrControl+Shift+B", async () => {
-        await appWindow.show();
+      // Enable autostart
+      await window.__TAURI__.autostart.enable();
+
+      await window.__TAURI__.globalShortcut.register(
+        "CommandOrControl+Shift+B",
+        async (event) => {
+          if (event.state === "Pressed") {
+            await window.__TAURI__.core.invoke("toggle_window");
+          }
+        },
+      );
+
+      const menu = await window.__TAURI__.menu.Menu.new({
+        items: [
+          {
+            id: "quit",
+            text: "Quit",
+            action: (): void => {
+              console.log("quit pressed");
+            },
+          },
+        ],
+      });
+
+      const tray = await window.__TAURI__.tray.TrayIcon.new({
+        menu,
+        // menuOnLeftClick: true,
       });
     })();
   }, []);
@@ -37,5 +45,3 @@ function Tuval() {
     </div>
   );
 }
-
-export default withMediatorContext(Tuval);

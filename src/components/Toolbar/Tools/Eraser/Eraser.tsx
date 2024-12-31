@@ -1,20 +1,11 @@
-/** Dependencies */
+import { IconEraser } from "@tabler/icons-react";
 import clsx from "clsx";
-
-/** Components */
-import Tooltip from "../../../commons/Tooltip/Tooltip";
-import { EraserIcon, EraserActiveIcon } from "../../../commons/Icons";
-
-/** Store */
 import { useStore } from "../../../../store/useStore";
-
-/** Stylesheets */
+import Tooltip from "../../../commons/Tooltip/Tooltip";
 import "./Eraser.scss";
-
-/** Types */
 import type { EraserProps } from "./Eraser.types";
 
-export default function Eraser(props: EraserProps) {
+export default function Eraser(props: EraserProps): React.ReactElement {
   const { className = "" } = props;
 
   const { toolType, setToolType } = useStore((state) => state);
@@ -26,9 +17,9 @@ export default function Eraser(props: EraserProps) {
         className={clsx("eraser", className, {
           // "toolbar__button--active": toolType === "eraser",
         })}
-        onClick={() => setToolType("eraser")}
+        onClick={(): void => setToolType("eraser")}
       >
-        {toolType === "eraser" ? <EraserActiveIcon /> : <EraserIcon />}
+        {toolType === "eraser" ? <IconEraser /> : <IconEraser />}
       </button>
     </Tooltip>
   );

@@ -1,17 +1,10 @@
-/** Dependencies */
 import { useCallback, useEffect, useRef, useState } from "react";
-
-/** Store */
-import { useStore } from "../../store/useStore";
-
-/** Hooks */
 import useEventListener from "../../hooks/useEventListener";
-
-/** Types */
+import { useStore } from "../../store/useStore";
 import type { Coordinate } from "./Canvas.types";
 
-export default function Canvas() {
-  const [lastPressed, setLastPressed] = useState<string>("");
+export default function Canvas(): React.ReactElement {
+  const [lastPressed, setLastPressed] = useState("");
   const [isPainting, setIsPainting] = useState(false);
   const [hue, setHue] = useState(0);
   const [mousePosition, setMousePosition] = useState<Coordinate>();
@@ -26,7 +19,7 @@ export default function Canvas() {
     setCurrentRainbowColor,
   } = useStore((state) => state);
 
-  const canvasInitilize = () => {
+  const canvasInitilize = (): void => {
     if (!canvasRef.current) {
       return;
     }
@@ -79,7 +72,7 @@ export default function Canvas() {
 
       context.stroke();
     },
-    [toolType, brushSize, brushColor, hue]
+    [toolType, brushSize, brushColor, hue],
   );
 
   const getCoordinates = (event: MouseEvent): Coordinate => {
@@ -111,7 +104,7 @@ export default function Canvas() {
         setMousePosition(newMousePosition);
       }
     },
-    [isPainting, mousePosition]
+    [isPainting, mousePosition],
   );
 
   useEventListener("mousemove", paint);
@@ -135,7 +128,7 @@ export default function Canvas() {
 
       setLastPressed(event.key);
     },
-    [lastPressed]
+    [lastPressed],
   );
 
   useEventListener("keydown", keydownHandler);

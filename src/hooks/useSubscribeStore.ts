@@ -1,10 +1,7 @@
-/** Dependencies */
 import { useEffect } from "react";
 
-/** Store */
 import { useStore } from "../store/useStore";
 
-/** Types */
 import type { State } from "../store/useStore.types";
 
 export default function useSubscribeStore<U>(
@@ -13,13 +10,13 @@ export default function useSubscribeStore<U>(
   options?: {
     equalityFn?: (a: U, b: U) => boolean;
     fireImmediately?: boolean;
-  }
-) {
+  },
+): void {
   useEffect(() => {
-    useStore.subscribe<U>(selector, listener, options);
+    const selectorListener = useStore.subscribe<U>(selector, listener, options);
 
-    return () => {
-      useStore.destroy();
+    return (): void => {
+      selectorListener();
     };
   });
 }

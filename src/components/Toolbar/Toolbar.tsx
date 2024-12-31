@@ -1,31 +1,23 @@
-/** Dependencies */
+import { IconArrowBackUp, IconArrowForwardUp } from "@tabler/icons-react";
+import { hide } from "@tauri-apps/api/app";
 import { useCallback, useState } from "react";
-import { appWindow } from "@tauri-apps/api/window";
-
-/** Components */
-import Brush from "./Tools/Brush/Brush";
-import Eraser from "./Tools/Eraser/Eraser";
-import ColorPicker from "./Tools/ColorPicker/ColorPicker";
-import RainbowColor from "./Tools/RainbowColor/RainbowColor";
-// import { RedoIcon, UndoIcon } from "../commons/Icons";
-
-/** Store */
-import { useStore } from "../../store/useStore";
-
-/** Hooks */
 import useEventListener from "../../hooks/useEventListener";
-
-/** Stylesheets */
+import { useStore } from "../../store/useStore";
+import Brush from "./Tools/Brush/Brush";
+import ColorPicker from "./Tools/ColorPicker/ColorPicker";
+import Eraser from "./Tools/Eraser/Eraser";
+import RainbowColor from "./Tools/RainbowColor/RainbowColor";
 import "./Toolbar.scss";
+import clsx from "clsx";
 
-export default function Toolbar() {
+export default function Toolbar(): React.ReactElement {
   const [lastScrollPosition, setLastScrollPosition] = useState<{
     x: number;
     y: number;
   }>({ x: 0, y: 0 });
   const [lastPressed, setLastPressed] = useState<string>("");
 
-  const { setBrushSize, setToolType } = useStore((state) => state);
+  const { setBrushSize, setToolType, toolType } = useStore((state) => state);
 
   const mouseMoveHandler = useCallback((event: MouseEvent) => {
     setLastScrollPosition({
@@ -37,12 +29,11 @@ export default function Toolbar() {
   useEventListener("mousemove", mouseMoveHandler);
 
   const mouseDownHandler = useCallback(async (event: MouseEvent) => {
-    if (event.which === 3) {
-      await appWindow.hide();
+    if (event.button === 2) {
+      await hide();
     }
   }, []);
 
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   useEventListener("mousedown", mouseDownHandler);
 
   const mouseWheelHandler = useCallback(
@@ -71,7 +62,7 @@ export default function Toolbar() {
         return newValue;
       });
     },
-    [lastScrollPosition]
+    [lastScrollPosition],
   );
 
   useEventListener("wheel", mouseWheelHandler, undefined, { passive: false });
@@ -88,7 +79,7 @@ export default function Toolbar() {
 
       setLastPressed(event.key);
     },
-    [lastPressed, setLastPressed]
+    [lastPressed, setLastPressed],
   );
 
   useEventListener("keydown", keydownHandler);
@@ -102,23 +93,31 @@ export default function Toolbar() {
   return (
     <div className="toolbar">
       <div className="toolbar__items">
-        <Brush className="toolbar__item" />
-        <Eraser className="toolbar__item" />
+        <Brush
+          className={clsx("toolbar__item", {
+            "toolbar__item--active": toolType === "brush",
+          })}
+        />
+        <Eraser
+          className={clsx("toolbar__item", {
+            "toolbar__item--active": toolType === "eraser",
+          })}
+        />
         <ColorPicker className="toolbar__item" />
         <RainbowColor className="toolbar__item" />
       </div>
-      {/* <div className="toolbar__items">
+      <div className="toolbar__items">
         <div className="toolbar__item">
           <button type="button" className="toolbar__button">
-            <UndoIcon />
+            <IconArrowBackUp />
           </button>
         </div>
         <div className="toolbar__item">
           <button type="button" className="toolbar__button">
-            <RedoIcon />
+            <IconArrowForwardUp />
           </button>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 }

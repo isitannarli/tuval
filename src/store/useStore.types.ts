@@ -13,5 +13,3 @@ export interface State {
 
 export type Tool = "brush" | "eraser";
 export type ColorType = "solid" | "rainbow";
-
-// export type CanvasRef = React.RefObject<HTMLCanvasElement> | null;

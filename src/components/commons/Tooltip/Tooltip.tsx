@@ -1,15 +1,12 @@
-/** Dependencies */
 import clsx from "clsx";
 import { useCallback, useRef, useState } from "react";
 import useEventListener from "../../../hooks/useEventListener";
-
-/** Stylesheets */
 import "./Tooltip.scss";
-
-/** Tyoes */
 import type { TooltipProps } from "./Tooltip.types";
 
-export default function Tooltip(props: TooltipProps) {
+export default function Tooltip(
+  props: TooltipProps,
+): React.ReactElement | null {
   const {
     className = "",
     children,

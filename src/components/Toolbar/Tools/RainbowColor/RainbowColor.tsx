@@ -1,24 +1,17 @@
-/** Dependencies */
+import { IconCircleCheck } from "@tabler/icons-react";
 import clsx from "clsx";
-
-/** Components */
-import Tooltip from "../../../commons/Tooltip/Tooltip";
-import { TickCircleLinearIcon } from "../../../commons/Icons";
-
-/** Store */
 import { useStore } from "../../../../store/useStore";
-
-/** Stylesheets */
+import Tooltip from "../../../commons/Tooltip/Tooltip";
 import "./RainbowColor.scss";
-
-/** Types */
 import type { RainbowColorProps } from "./RainbowColor.types";
 
-export default function RainbowColor(props: RainbowColorProps) {
+export default function RainbowColor(
+  props: RainbowColorProps,
+): React.ReactElement {
   const { className = "" } = props;
 
   const { setToolType, setBrushColorType, brushColorType } = useStore(
-    (state) => state
+    (state) => state,
   );
 
   return (
@@ -26,13 +19,13 @@ export default function RainbowColor(props: RainbowColorProps) {
       <button
         type="button"
         className={clsx("rainbow-color", className)}
-        onClick={() => {
+        onClick={(): void => {
           setBrushColorType("rainbow");
           setToolType("brush");
         }}
       >
         {brushColorType === "rainbow" && (
-          <TickCircleLinearIcon className="rainbow-color__active-icon" />
+          <IconCircleCheck className="rainbow-color__active-icon" />
         )}
       </button>
     </Tooltip>

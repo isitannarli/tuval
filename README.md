@@ -27,32 +27,28 @@ https://user-images.githubusercontent.com/4882982/198876864-425b01d3-58c9-4cd9-a
 
 **Required:**
 
-- NodeJS v18.12.0
-- Rust v1.25.1
+- NodeJS v22.12.0
+- Rust v1.83.0
 
 ```shell
-npm install
+pnpm install
 ```
 
 **Running**
 
 ```shell
-npm run tauri dev
+pnpm run tauri dev
 ```
 
 **Building**
 
 ```shell
-yarn run tauri build
+pnpm run tauri build
 ```
 
 ### Design
 
 [Figma](https://www.figma.com/file/L0jvGh8vTd7QN2JSU54VqI/tuval?node-id=0%3A1)
-
-## Known Issues
-
-- [ ] [https://github.com/tauri-apps/tauri/issues/4243](https://github.com/tauri-apps/tauri/issues/4243)
 
 ## Todo
 
@@ -64,6 +60,15 @@ yarn run tauri build
 - [ ] Theme
 - [ ] Settings
   - [ ] Shortcut
+
+## FAQ
+
+### Motivation
+
+I have searched for many applications with similar features, but I haven't come across a multi-featured tool that can be used cross-platform. This is why I decided to build one myself. My main objective is to be able to draw and write on my desktop while collaborating with others.
+
+### Privacy
+Tuval is a software that solely runs on your computer. It does not gather any information or data from your device.
 
 ## Sources
 

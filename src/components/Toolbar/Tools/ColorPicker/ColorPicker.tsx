@@ -1,20 +1,13 @@
-/** Dependencies */
+import { IconCircleCheck } from "@tabler/icons-react";
 import clsx from "clsx";
-
-/** Components */
-import Tooltip from "../../../commons/Tooltip/Tooltip";
-import { TickCircleLinearIcon } from "../../../commons/Icons";
-
-/** Store */
 import { useStore } from "../../../../store/useStore";
-
-/** Stylesheets */
+import Tooltip from "../../../commons/Tooltip/Tooltip";
 import "./ColorPicker.scss";
-
-/** Types */
 import type { ColorPickerProps } from "./ColorPicker.types";
 
-export default function ColorPicker(props: ColorPickerProps) {
+export default function ColorPicker(
+  props: ColorPickerProps,
+): React.ReactElement {
   const { className = "" } = props;
 
   const {
@@ -25,7 +18,6 @@ export default function ColorPicker(props: ColorPickerProps) {
     setBrushColor,
   } = useStore((state) => state);
 
-  /* eslint-disable jsx-a11y/label-has-associated-control */
   return (
     <Tooltip title="Color Picker">
       <label className={clsx("color-picker", className)}>
@@ -34,16 +26,16 @@ export default function ColorPicker(props: ColorPickerProps) {
           style={{ backgroundColor: brushColor }}
         >
           {brushColorType === "solid" && (
-            <TickCircleLinearIcon className="color-picker__active-icon" />
+            <IconCircleCheck className="color-picker__active-icon" />
           )}
         </div>
         <input
           type="color"
           className="color-picker__input"
-          onClick={() => {
+          onClick={(): void => {
             setBrushColorType("solid");
           }}
-          onChange={(event) => {
+          onChange={(event): void => {
             setBrushColor(event.target.value);
             setBrushColorType("solid");
             setToolType("brush");
@@ -52,5 +44,4 @@ export default function ColorPicker(props: ColorPickerProps) {
       </label>
     </Tooltip>
   );
-  /* eslint-enable jsx-a11y/label-has-associated-control */
 }
